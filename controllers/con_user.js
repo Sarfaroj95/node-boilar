@@ -117,13 +117,13 @@ exports.deleteRow = function(req, res) {
 
 // add user
 exports.AddUser = function(req, res) {
-  Adduser.findOne({ mobile: req.body.mobile }, function(err, existingUser) {
+  Adduser.findOne({ email: req.body.email }, function(err, existingUser) {
     if (err) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     } else {
       if (existingUser) {
         return res.status(422).send({
-          errors: [{ title: "Invalid", details: "Mobile no is already exists" }]
+          errors: [{ title: "Invalid", details: "Email no is already exists" }]
         });
       } else {
         const adduser = req.body;
