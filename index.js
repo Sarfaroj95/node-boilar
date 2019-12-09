@@ -21,6 +21,9 @@ app.use("/api/v1/user/", UserRouter);
 app.get("/", function(req, res) {
   res.send("I Running on the server.");
 });
+app.get("/sarf", function(req, res) {
+  res.send("I'm Sarfaroj.");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
