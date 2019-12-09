@@ -18,6 +18,9 @@ mongoose.connect(config.DB_URL, (err, doc) => {
 app.use(bodyParser.json());
 
 app.use("/api/v1/user/", UserRouter);
+app.get("/", function(req, res) {
+  res.send("I Running on the server.");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
