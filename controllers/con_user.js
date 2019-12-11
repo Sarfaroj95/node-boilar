@@ -1,10 +1,10 @@
-const User = require("../model/mod_user");
+const Mainuser = require("../model/mod_user");
 const Adduser = require("../model/mod_add_user");
 const { normalizeErrors } = require("../helper/mongoose");
 
 //register part
 exports.Register = function(req, res) {
-  User.findOne({ email: req.body.email }, function(err, existingUser) {
+  Mainuser.findOne({ email: req.body.email }, function(err, existingUser) {
     if (err) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     } else {
@@ -17,7 +17,7 @@ exports.Register = function(req, res) {
       } else {
         const user1 = req.body;
         //delete user1.passwordConfirmation;
-        const user = new User(user1);
+        const user = new Mainuser(user1);
         user.save(function(err) {
           if (err) {
             return res
@@ -38,7 +38,7 @@ exports.Register = function(req, res) {
 exports.Login = function(req, res) {
   const { email, password } = req.body;
 
-  User.findOne({ email: email, password: password }, function(err, user) {
+  Mainuser.findOne({ email: email, password: password }, function(err, user) {
     if (err) {
       console.log(err);
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
@@ -51,16 +51,17 @@ exports.Login = function(req, res) {
         ]
       });
     }
-    return res.json({ success: true, data: user });
+    return res.json({ success: true, data: user._id });
   });
   // res.json({'success' : true});
 };
 // fatch uerdata
 exports.userdata = function(req, res) {
-  User.find({})
-    .select("username")
+  Mainuser.find({})
+    .select("first_name")
+    .select("last_name")
     .select("email")
-    .select("birthday")
+
     // .select("password")
     .exec(function(err, foundUsers) {
       res.json(foundUsers);
@@ -68,10 +69,10 @@ exports.userdata = function(req, res) {
 };
 
 exports.getuserById = function(req, res) {
-  User.findById({ _id: req.params.id })
-    .select("username")
+  Mainuser.findById({ _id: req.params.id })
+    .select("first_name")
+    .select("last_name")
     .select("email")
-    .select("birthday")
     // .select("password")
     .exec(function(err, foundUsers) {
       res.json(foundUsers);
@@ -80,13 +81,12 @@ exports.getuserById = function(req, res) {
 
 //update section
 exports.update = function(req, res) {
-  User.findOneAndUpdate(
+  Mainuser.findOneAndUpdate(
     { _id: req.params.id },
     {
-      username: req.body.username,
-      email: req.body.email,
-      birthday: req.body.birthday,
-      password: req.body.password
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: req.body.email
     },
     {
       new: true
@@ -104,7 +104,7 @@ exports.update = function(req, res) {
 
 // Delete user byID
 exports.deleteRow = function(req, res) {
-  User.findByIdAndRemove({ _id: req.params.id }, function(err) {
+  Mainuser.findByIdAndRemove({ _id: req.params.id }, function(err) {
     if (err) {
       console.log("err");
       return res.status(422).send({ errors: normalizeErrors(err.errors) });

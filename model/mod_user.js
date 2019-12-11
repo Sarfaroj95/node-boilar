@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
-  username: {
+const mainuserSchema = new Schema({
+  first_name: {
     type: String,
     min: [4, "Too short, short 4 character"],
     max: [32, "To long, Max is 32 character "]
   },
-  birthday: {
-    type: String
-    //require: 'Date is require',
+  last_name: {
+    type: String,
+    min: [4, "Too short, short 4 character"],
+    max: [32, "To long, Max is 32 character "]
   },
 
   email: {
@@ -30,4 +31,4 @@ const userSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Mainuser", mainuserSchema);
