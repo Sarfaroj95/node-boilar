@@ -152,6 +152,17 @@ exports.SubUser = function(req, res) {
     });
 };
 
+exports.getSubUserById = function(req, res) {
+  Adduser.findById({ _id: req.params.id })
+    .select("name")
+    .select("mobile")
+    .select("email")
+    // .select("password")
+    .exec(function(err, foundUsers) {
+      res.json(foundUsers);
+    });
+};
+
 exports.SubUpdate = function(req, res) {
   Adduser.findOneAndUpdate(
     { _id: req.params.id },

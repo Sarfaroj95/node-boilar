@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 app.use("/api/v1/user/", UserRouter);
 app.get("/", function(req, res) {
-  res.send("I Running on the server.");
+  res.send("I'm Running on the Server.");
 });
 app.get("/sarf", function(req, res) {
   res.send("I'm Sarfaroj.");

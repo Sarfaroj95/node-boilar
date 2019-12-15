@@ -11,7 +11,8 @@ router.delete("/delete/:id", Mainuser.deleteRow);
 
 router.post("/adduser", Mainuser.AddUser);
 router.get("/subuser", Mainuser.SubUser);
-router.get("/subuser/:id", Mainuser.SubUpdate);
+router.get("/subuser/:id", Mainuser.getSubUserById);
+router.post("/subuser/:id", Mainuser.SubUpdate);
 router.delete("/subuser/:id", Mainuser.SubDelete);
 
 module.exports = router;
