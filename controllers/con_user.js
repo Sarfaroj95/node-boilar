@@ -1,5 +1,6 @@
 const Mainuser = require("../model/mod_user");
 const Adduser = require("../model/mod_add_user");
+const Todo = require("../model/todo_add");
 const { normalizeErrors } = require("../helper/mongoose");
 
 //register part
@@ -187,6 +188,83 @@ exports.SubUpdate = function(req, res) {
 
 exports.SubDelete = function(req, res) {
   Adduser.findByIdAndRemove({ _id: req.params.id }, function(err) {
+    if (err) {
+      console.log("err");
+      return res.status(422).send({ errors: normalizeErrors(err.errors) });
+    }
+    console.log("Deleted...");
+    // return res.status(200).send("done");
+    return res.json({ Delete: true });
+  });
+};
+
+//  Todo
+exports.AddTodo = function(req, res) {
+  Todo.findOne({ title: req.body.title }, function(err, existingUser) {
+    if (err) {
+      return res.status(422).send({ errors: normalizeErrors(err.errors) });
+    } else {
+      if (existingUser) {
+        return res.status(422).send({
+          errors: [{ title: "Invalid", details: "Title is already exists" }]
+        });
+      } else {
+        const todo = req.body;
+        const user = new Todo(todo);
+        user.save(function(err) {
+          if (err) {
+            return res
+              .status(422)
+              .send({ errors: normalizeErrors(err.errors) });
+          } else {
+            return res.json({ register: true });
+          }
+        });
+      }
+    }
+  });
+};
+
+exports.TodoList = function(req, res) {
+  Todo.find({})
+    .select("title")
+    .exec(function(err, foundUsers) {
+      res.json(foundUsers);
+    });
+};
+
+exports.TodoDetails = function(req, res) {
+  Todo.findById({ _id: req.params.id })
+    .select("title")
+    .select("body")
+    .exec(function(err, foundUsers) {
+      res.json(foundUsers);
+    });
+};
+
+exports.TodoUpdate = function(req, res) {
+  Todo.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      name: req.body.title,
+      mobile: req.body.body
+    },
+    {
+      new: true
+    },
+    (err, doc) => {
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      } else {
+        res.json({ success: true });
+        console.log("Updated...");
+      }
+    }
+  );
+};
+
+exports.TodoDelete = function(req, res) {
+  Todo.findByIdAndRemove({ _id: req.params.id }, function(err) {
     if (err) {
       console.log("err");
       return res.status(422).send({ errors: normalizeErrors(err.errors) });

@@ -15,4 +15,10 @@ router.get("/subuser/:id", Mainuser.getSubUserById);
 router.post("/subuser/:id", Mainuser.SubUpdate);
 router.delete("/subuser/:id", Mainuser.SubDelete);
 
+router.post("/todo", Mainuser.AddTodo);
+router.get("/todolist", Mainuser.TodoList);
+router.get("/tododetails/:id", Mainuser.TodoDetails);
+router.post("/todoupdate/:id", Mainuser.TodoUpdate);
+router.delete("/tododelete/:id", Mainuser.TodoDelete);
+
 module.exports = router;
