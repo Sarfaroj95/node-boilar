@@ -24,7 +24,9 @@ app.get("/", function(req, res) {
 app.get("/sarf", function(req, res) {
   res.send("I'm Sarfaroj.");
 });
-
+app.get("/wow", function(req, res) {
+  res.send("I like u");
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
   console.log(`app is running on http://localhost:${PORT}`);
