@@ -287,3 +287,37 @@ exports.TodoDelete = function(req, res) {
     return res.json({ Delete: true });
   });
 };
+
+exports.AddTodo2 = function(req, res) {
+  Todo.findOne({ title: req.body.title }, function(err, existingUser) {
+    if (err) {
+      return res.status(422).send({ errors: normalizeErrors(err.errors) });
+    } else {
+      if (existingUser) {
+        return res.status(422).send({
+          errors: [{ title: "Invalid", details: "Title is already exists" }]
+        });
+      } else {
+        const todo = req.body;
+        const user = new Todo(todo);
+        user.save(function(err) {
+          if (err) {
+            return res
+              .status(422)
+              .send({ errors: normalizeErrors(err.errors) });
+          } else {
+            return res.json({ msg: user });
+          }
+        });
+      }
+    }
+  });
+};
+
+exports.TodoList2 = function(req, res) {
+  Todo.find({})
+    .select("title")
+    .exec(function(err, foundUsers) {
+      res.json({ msg: foundUsers });
+    });
+};

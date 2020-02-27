@@ -23,4 +23,7 @@ router.get("/tododetails/:id", Mainuser.TodoDetails);
 router.post("/todoupdate/:id", Mainuser.TodoUpdate);
 router.delete("/tododelete/:id", Mainuser.TodoDelete);
 
+router.post("/todosushanta", Mainuser.AddTodo2);
+router.get("/todolistsushanta", Mainuser.TodoList2);
+
 module.exports = router;
