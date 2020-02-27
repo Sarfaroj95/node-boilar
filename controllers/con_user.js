@@ -318,6 +318,6 @@ exports.TodoList2 = function(req, res) {
   Todo.find({})
     .select("title")
     .exec(function(err, foundUsers) {
-      res.json({ msg: foundUsers[0] });
+      res.json(foundUsers[0]);
     });
 };
