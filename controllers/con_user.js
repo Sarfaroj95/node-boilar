@@ -288,6 +288,7 @@ exports.TodoDelete = function(req, res) {
   });
 };
 
+// for sushanta
 exports.AddTodo2 = function(req, res) {
   Todo.findOne({ title: req.body.title }, function(err, existingUser) {
     if (err) {
@@ -306,7 +307,7 @@ exports.AddTodo2 = function(req, res) {
               .status(422)
               .send({ errors: normalizeErrors(err.errors) });
           } else {
-            return res.json({ msg: user });
+            return res.json(user);
           }
         });
       }
