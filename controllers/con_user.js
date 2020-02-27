@@ -69,6 +69,19 @@ exports.userdata = function(req, res) {
     });
 };
 
+// For sushant
+exports.userdatasunt = function(req, res) {
+  Mainuser.find({})
+    .select("first_name")
+    .select("last_name")
+    .select("email")
+
+    // .select("password")
+    .exec(function(err, foundUsers) {
+      res.json({ msg: foundUsers });
+    });
+};
+
 exports.getuserById = function(req, res) {
   Mainuser.findById({ _id: req.params.id })
     .select("first_name")
