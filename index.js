@@ -18,16 +18,16 @@ mongoose.connect(config.DB_URL, (err, doc) => {
 app.use(bodyParser.json());
 
 app.use("/api/v1/user/", UserRouter);
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.send("I'm Running on the Server.");
 });
-app.get("/sarf", function(req, res) {
+app.get("/sarf", function (req, res) {
   res.send("I'm Sarfaroj.");
 });
-app.get("/wow", function(req, res) {
+app.get("/wow", function (req, res) {
   res.send("I like u");
 });
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, function() {
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, function () {
   console.log(`app is running on http://localhost:${PORT}`);
 });

@@ -4,8 +4,8 @@ const Todo = require("../model/todo_add");
 const { normalizeErrors } = require("../helper/mongoose");
 
 //register part
-exports.Register = function(req, res) {
-  Mainuser.findOne({ email: req.body.email }, function(err, existingUser) {
+exports.Register = function (req, res) {
+  Mainuser.findOne({ email: req.body.email }, function (err, existingUser) {
     if (err) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     } else {
@@ -19,7 +19,7 @@ exports.Register = function(req, res) {
         const user1 = req.body;
         //delete user1.passwordConfirmation;
         const user = new Mainuser(user1);
-        user.save(function(err) {
+        user.save(function (err) {
           if (err) {
             return res
               .status(422)
@@ -36,10 +36,10 @@ exports.Register = function(req, res) {
 //register end part
 
 // login part
-exports.Login = function(req, res) {
+exports.Login = function (req, res) {
   const { email, password } = req.body;
 
-  Mainuser.findOne({ email: email, password: password }, function(err, user) {
+  Mainuser.findOne({ email: email, password: password }, function (err, user) {
     if (err) {
       console.log(err);
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
@@ -57,44 +57,44 @@ exports.Login = function(req, res) {
   // res.json({'success' : true});
 };
 // fatch uerdata
-exports.userdata = function(req, res) {
+exports.userdata = function (req, res) {
   Mainuser.find({})
     .select("first_name")
     .select("last_name")
     .select("email")
 
     // .select("password")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
 };
 
 // For sushant
-exports.userdatasunt = function(req, res) {
+exports.userdatasunt = function (req, res) {
   Mainuser.find({})
     .select("first_name")
     .select("last_name")
     .select("email")
 
     // .select("password")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json({ msg: foundUsers });
     });
 };
 
-exports.getuserById = function(req, res) {
+exports.getuserById = function (req, res) {
   Mainuser.findById({ _id: req.params.id })
     .select("first_name")
     .select("last_name")
     .select("email")
     // .select("password")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
 };
 
 //update section
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   Mainuser.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -117,8 +117,8 @@ exports.update = function(req, res) {
 };
 
 // Delete user byID
-exports.deleteRow = function(req, res) {
-  Mainuser.findByIdAndRemove({ _id: req.params.id }, function(err) {
+exports.deleteRow = function (req, res) {
+  Mainuser.findByIdAndRemove({ _id: req.params.id }, function (err) {
     if (err) {
       console.log("err");
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
@@ -130,8 +130,8 @@ exports.deleteRow = function(req, res) {
 };
 
 // add user
-exports.AddUser = function(req, res) {
-  Adduser.findOne({ email: req.body.email }, function(err, existingUser) {
+exports.AddUser = function (req, res) {
+  Adduser.findOne({ email: req.body.email }, function (err, existingUser) {
     if (err) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     } else {
@@ -142,7 +142,7 @@ exports.AddUser = function(req, res) {
       } else {
         const adduser = req.body;
         const user = new Adduser(adduser);
-        user.save(function(err) {
+        user.save(function (err) {
           if (err) {
             return res
               .status(422)
@@ -156,28 +156,28 @@ exports.AddUser = function(req, res) {
   });
 };
 
-exports.SubUser = function(req, res) {
+exports.SubUser = function (req, res) {
   Adduser.find({})
     .select("name")
     .select("mobile")
     .select("email")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
 };
 
-exports.getSubUserById = function(req, res) {
+exports.getSubUserById = function (req, res) {
   Adduser.findById({ _id: req.params.id })
     .select("name")
     .select("mobile")
     .select("email")
     // .select("password")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
 };
 
-exports.SubUpdate = function(req, res) {
+exports.SubUpdate = function (req, res) {
   Adduser.findOneAndUpdate(
     { _id: req.params.id },
     {
@@ -199,8 +199,8 @@ exports.SubUpdate = function(req, res) {
   );
 };
 
-exports.SubDelete = function(req, res) {
-  Adduser.findByIdAndRemove({ _id: req.params.id }, function(err) {
+exports.SubDelete = function (req, res) {
+  Adduser.findByIdAndRemove({ _id: req.params.id }, function (err) {
     if (err) {
       console.log("err");
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
@@ -212,8 +212,8 @@ exports.SubDelete = function(req, res) {
 };
 
 //  Todo
-exports.AddTodo = function(req, res) {
-  Todo.findOne({ title: req.body.title }, function(err, existingUser) {
+exports.AddTodo = function (req, res) {
+  Todo.findOne({ title: req.body.title }, function (err, existingUser) {
     if (err) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     } else {
@@ -224,7 +224,7 @@ exports.AddTodo = function(req, res) {
       } else {
         const todo = req.body;
         const user = new Todo(todo);
-        user.save(function(err) {
+        user.save(function (err) {
           if (err) {
             return res
               .status(422)
@@ -238,29 +238,49 @@ exports.AddTodo = function(req, res) {
   });
 };
 
-exports.TodoList = function(req, res) {
+exports.TodoList = function (req, res) {
   Todo.find({})
     .select("title")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
 };
 
-exports.TodoDetails = function(req, res) {
+exports.TodoDetails = function (req, res) {
   Todo.findById({ _id: req.params.id })
     .select("title")
     .select("body")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
 };
 
-exports.TodoUpdate = function(req, res) {
+exports.TodoUpdate = function (req, res) {
+  // Todo.findOneAndUpdate(
+  //   { _id: req.params.id },
+  //   {
+  //     name: req.body.title,
+  //     body: req.body.body
+  //   },
+  //   {
+  //     new: true
+  //   },
+  //   (err, doc) => {
+  //     if (err) {
+  //       return res.status(422).send({ errors: normalizeErrors(err.errors) });
+  //     } else {
+  //       res.json({ success: "success" });
+  //       console.log("Updated...");
+  //     }
+  //   }
+  // );
+
   Todo.findOneAndUpdate(
     { _id: req.params.id },
     {
-      name: req.body.title,
-      mobile: req.body.body
+      title: req.body.title,
+      body: req.body.body
+
     },
     {
       new: true
@@ -276,8 +296,8 @@ exports.TodoUpdate = function(req, res) {
   );
 };
 
-exports.TodoDelete = function(req, res) {
-  Todo.findByIdAndRemove({ _id: req.params.id }, function(err) {
+exports.TodoDelete = function (req, res) {
+  Todo.findByIdAndRemove({ _id: req.params.id }, function (err) {
     if (err) {
       console.log("err");
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
@@ -289,8 +309,8 @@ exports.TodoDelete = function(req, res) {
 };
 
 // for sushanta
-exports.AddTodo2 = function(req, res) {
-  Todo.findOne({ title: req.body.title }, function(err, existingUser) {
+exports.AddTodo2 = function (req, res) {
+  Todo.findOne({ title: req.body.title }, function (err, existingUser) {
     if (err) {
       return res.status(422).send({ errors: normalizeErrors(err.errors) });
     } else {
@@ -301,7 +321,7 @@ exports.AddTodo2 = function(req, res) {
       } else {
         const todo = req.body;
         const user = new Todo(todo);
-        user.save(function(err) {
+        user.save(function (err) {
           if (err) {
             return res
               .status(422)
@@ -315,10 +335,10 @@ exports.AddTodo2 = function(req, res) {
   });
 };
 
-exports.TodoList2 = function(req, res) {
+exports.TodoList2 = function (req, res) {
   Todo.find({})
     .select("title")
-    .exec(function(err, foundUsers) {
+    .exec(function (err, foundUsers) {
       res.json(foundUsers[0]);
     });
 };
