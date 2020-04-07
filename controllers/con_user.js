@@ -257,24 +257,6 @@ exports.TodoDetails = function (req, res) {
 };
 
 exports.TodoUpdate = function (req, res) {
-  // Todo.findOneAndUpdate(
-  //   { _id: req.params.id },
-  //   {
-  //     name: req.body.title,
-  //     body: req.body.body
-  //   },
-  //   {
-  //     new: true
-  //   },
-  //   (err, doc) => {
-  //     if (err) {
-  //       return res.status(422).send({ errors: normalizeErrors(err.errors) });
-  //     } else {
-  //       res.json({ success: "success" });
-  //       console.log("Updated...");
-  //     }
-  //   }
-  // );
 
   Todo.findOneAndUpdate(
     { _id: req.params.id },
