@@ -241,6 +241,7 @@ exports.AddTodo = function (req, res) {
 exports.TodoList = function (req, res) {
   Todo.find({})
     .select("title")
+    .select("body")
     .exec(function (err, foundUsers) {
       res.json(foundUsers);
     });
