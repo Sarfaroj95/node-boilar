@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
 const bodyParser = require("body-parser");
 const config = require("./config/dev");
 const UserRouter = require("./routers/rouer");
